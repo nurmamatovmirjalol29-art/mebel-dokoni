@@ -1,1193 +1,179 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="theme-color" content="#0c4a6e">
-    <meta name="description" content="Mebel Do'koni — Premium uslubda Registon naqshlari va zamonaviy dizayn uyg'unligidagi mebellar">
-    <title>Mebel Do'koni - Premium Uslubda</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --registon-blue: #0c4a6e;
-            --registon-deep: #082f49;
-            --registon-gold: #d97706;
-            --registon-gold-light: #f59e0b;
-            --turquoise: #06b6d4;
-        }
-        
-        * { -webkit-tap-highlight-color: transparent; }
-        
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #faf8f3;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            opacity: 0.035;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%230c4a6e' stroke-width='1'%3E%3Cpath d='M60 10 L75 25 L95 25 L95 45 L110 60 L95 75 L95 95 L75 95 L60 110 L45 95 L25 95 L25 75 L10 60 L25 45 L25 25 L45 25 Z'/%3E%3Ccircle cx='60' cy='60' r='8'/%3E%3C/g%3E%3C/svg%3E");
-            background-size: 120px 120px;
-        }
-        
-        .font-display { font-family: 'Playfair Display', serif; }
-        .font-arabic { font-family: 'Cormorant Garamond', serif; }
-        
-        .registon-card {
-            position: relative;
-            background: #ffffff;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(12, 74, 110, 0.08), 0 10px 40px rgba(12, 74, 110, 0.12);
-            border: 1px solid rgba(217, 119, 6, 0.15);
-        }
-        
-        .registon-card::before,
-        .registon-card::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--registon-gold);
-            opacity: 0.7;
-            z-index: 20;
-            pointer-events: none;
-        }
-        
-        .registon-card::before {
-            top: 8px; left: 8px;
-            border-right: none; border-bottom: none;
-            border-top-left-radius: 12px;
-        }
-        
-        .registon-card::after {
-            bottom: 8px; right: 8px;
-            border-left: none; border-top: none;
-            border-bottom-right-radius: 12px;
-        }
-        
-        .registon-frame {
-            position: relative;
-            padding: 10px;
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%);
-            border-radius: 18px;
-        }
-        
-        .registon-frame::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 18px;
-            padding: 2px;
-            background: linear-gradient(135deg, var(--registon-blue) 0%, var(--registon-gold) 50%, var(--turquoise) 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-        
-        .wood-btn {
-            background: linear-gradient(135deg, #78350f 0%, #92400e 50%, #78350f 100%);
-            color: #fef3c7;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(217, 119, 6, 0.4);
-            box-shadow: 0 4px 12px rgba(120, 53, 15, 0.3), inset 0 1px 0 rgba(254, 243, 199, 0.15);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .wood-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(120, 53, 15, 0.45), inset 0 1px 0 rgba(254, 243, 199, 0.25);
-        }
-        
-        .wood-btn:active { transform: translateY(0); }
-        
-        .ripple-btn { position: relative; overflow: hidden; }
-        .ripple-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 0; height: 0;
-            background: radial-gradient(circle, rgba(254, 243, 199, 0.4), transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-            border-radius: 50%;
-        }
-        .ripple-btn:hover::after { width: 400px; height: 400px; }
-        
-        .registon-divider {
-            display: flex; align-items: center; justify-content: center;
-            gap: 12px; color: var(--registon-gold);
-        }
-        
-        .registon-divider::before,
-        .registon-divider::after {
-            content: '';
-            flex: 1; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--registon-gold) 50%, transparent);
-            max-width: 100px;
-        }
-        
-        .active-tab {
-            background: linear-gradient(135deg, var(--registon-blue) 0%, var(--registon-deep) 100%);
-            color: #ffffff;
-            box-shadow: 0 10px 15px -3px rgba(12, 74, 110, 0.35);
-            border: 1px solid rgba(217, 119, 6, 0.3);
-        }
-        
-        .price-modern {
-            position: relative;
-            border-radius: 16px;
-            padding: 2px;
-            background: linear-gradient(135deg, var(--registon-blue) 0%, var(--registon-gold) 50%, var(--turquoise) 100%);
-            box-shadow: 0 4px 16px rgba(12, 74, 110, 0.15);
-        }
-        
-        .price-modern-inner {
-            background: linear-gradient(135deg, #ffffff 0%, #fef9f0 100%);
-            border-radius: 14px;
-            padding: 12px 14px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .price-modern-inner::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.08), transparent);
-            animation: shimmer 3s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
-        .approx-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            color: #78350f;
-            font-size: 9px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(217, 119, 6, 0.4);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        
-        .contact-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%);
-            color: #fef3c7;
-            font-size: 9px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(217, 119, 6, 0.5);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        
-        #lightbox.active { display: flex !important; }
-        
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes zoomIn {
-            from { transform: scale(0.85); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes rotateSlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .toast-animate { animation: slideIn 0.3s ease-out; }
-        .lightbox-animate { animation: fadeIn 0.25s ease-out; }
-        .lightbox-img-animate { animation: zoomIn 0.35s ease-out; }
-        .slide-up { animation: slideUp 0.4s ease-out; }
-        
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #fef3c7; }
-        ::-webkit-scrollbar-thumb { 
-            background: linear-gradient(180deg, var(--registon-blue), var(--registon-gold)); 
-            border-radius: 10px; 
-        }
-        
-        @media (max-width: 640px) { .product-image { height: 240px; } }
-        @media (min-width: 641px) and (max-width: 1024px) { .product-image { height: 280px; } }
-        @media (min-width: 1025px) { .product-image { height: 300px; } }
-        
-        .hover-lift {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
-        }
-        
-        .hover-lift:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 6px rgba(12, 74, 110, 0.05), 0 20px 40px rgba(12, 74, 110, 0.15);
-        }
-        
-        .hero-registon {
-            background-image: 
-                linear-gradient(135deg, rgba(12, 74, 110, 0.95) 0%, rgba(8, 47, 73, 0.95) 100%),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23d97706' stroke-width='0.8' stroke-opacity='0.4'%3E%3Cpath d='M80 10 L95 25 L115 25 L130 40 L145 55 L145 75 L160 80 L145 85 L145 105 L130 120 L115 135 L95 135 L80 150 L65 135 L45 135 L30 120 L15 105 L15 85 L0 80 L15 75 L15 55 L30 40 L45 25 L65 25 Z'/%3E%3Ccircle cx='80' cy='80' r='12'/%3E%3C/g%3E%3C/svg%3E");
-            background-size: cover, 160px 160px;
-        }
-        
-        .color-btn {
-            position: relative;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 3px solid #ffffff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(12, 74, 110, 0.15);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        
-        .color-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(12, 74, 110, 0.25), 0 0 0 2px rgba(217, 119, 6, 0.5);
-        }
-        
-        .color-btn.active {
-            transform: scale(1.15);
-            border-color: var(--registon-gold);
-            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.4), 0 4px 12px rgba(12, 74, 110, 0.3);
-        }
-        
-        .color-btn.active::after {
-            content: '';
-            position: absolute;
-            inset: -6px;
-            border-radius: 50%;
-            border: 1px dashed var(--registon-gold);
-            animation: rotateSlow 10s linear infinite;
-        }
-        
-        .btn-registon {
-            background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%);
-            color: #fef3c7;
-            position: relative;
-            overflow: hidden;
-            border: 1.5px solid rgba(217, 119, 6, 0.4);
-            box-shadow: 0 4px 12px rgba(12, 74, 110, 0.3), inset 0 1px 0 rgba(254, 243, 199, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .btn-registon:hover {
-            transform: translateY(-2px);
-            border-color: rgba(217, 119, 6, 0.7);
-            box-shadow: 0 8px 24px rgba(12, 74, 110, 0.4), inset 0 1px 0 rgba(254, 243, 199, 0.2);
-        }
-        
-        .badge-registon {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            color: #78350f;
-            border: 1px solid rgba(217, 119, 6, 0.4);
-            box-shadow: 0 2px 4px rgba(217, 119, 6, 0.15);
-        }
-        
-        .wood-panel {
-            background: 
-                linear-gradient(135deg, rgba(254, 243, 199, 0.6), rgba(253, 230, 138, 0.4)),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%2378350f' stroke-width='0.3' stroke-opacity='0.3'%3E%3Cpath d='M0 15 Q50 12 100 15'/%3E%3Cpath d='M0 35 Q50 32 100 35'/%3E%3Cpath d='M0 55 Q50 52 100 55'/%3E%3Cpath d='M0 75 Q50 72 100 75'/%3E%3C/g%3E%3C/svg%3E");
-            border: 1px solid rgba(217, 119, 6, 0.3);
-        }
-        
-        .pattern-overlay {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23fef3c7' stroke-width='0.8' stroke-opacity='0.5'%3E%3Cpath d='M30 5 L40 15 L50 15 L50 25 L60 30 L50 35 L50 45 L40 45 L30 55 L20 45 L10 45 L10 35 L0 30 L10 25 L10 15 L20 15 Z'/%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        
-        .group:hover .pattern-overlay { opacity: 0.15; }
-    </style>
-</head>
-<body class="text-neutral-800 antialiased pb-24">
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
 
-    <!-- TOAST -->
-    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 px-6 py-3 rounded-2xl shadow-2xl text-white font-semibold z-[80] hidden toast-animate max-w-[90vw] text-center"></div>
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-    <!-- LIGHTBOX -->
-    <div id="lightbox" class="fixed inset-0 bg-neutral-900/95 backdrop-blur-md z-[75] hidden items-center justify-center p-3 sm:p-4 lightbox-animate">
-        <button type="button" onclick="closeLightbox()" 
-                class="absolute top-3 right-3 sm:top-4 sm:right-4 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-amber-500/30 text-white flex items-center justify-center transition-all z-10 backdrop-blur-md border border-amber-400/30">
-            <i class="fa-solid fa-xmark text-xl sm:text-2xl"></i>
-        </button>
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-        <div class="relative max-w-6xl w-full flex flex-col items-center" onclick="event.stopPropagation()">
-            <div class="relative w-full flex items-center justify-center p-3 rounded-3xl"
-                 style="background: linear-gradient(135deg, rgba(12,74,110,0.4), rgba(217,119,6,0.3), rgba(6,182,212,0.3));">
-                
-                <div class="absolute top-1 left-1 w-8 h-8 border-t-2 border-l-2 border-amber-400/60 rounded-tl-2xl"></div>
-                <div class="absolute top-1 right-1 w-8 h-8 border-t-2 border-r-2 border-amber-400/60 rounded-tr-2xl"></div>
-                <div class="absolute bottom-1 left-1 w-8 h-8 border-b-2 border-l-2 border-amber-400/60 rounded-bl-2xl"></div>
-                <div class="absolute bottom-1 right-1 w-8 h-8 border-b-2 border-r-2 border-amber-400/60 rounded-br-2xl"></div>
-                
-                <img id="lightboxImage" src="" alt="" 
-                     class="w-full h-auto max-h-[72vh] sm:max-h-[78vh] object-contain rounded-2xl shadow-2xl lightbox-img-animate bg-white">
-            </div>
-            
-            <div class="text-center mt-4 space-y-1 px-2">
-                <p id="lightboxTitle" class="text-white text-base sm:text-xl font-bold font-display"></p>
-                <p id="lightboxPrice" class="text-amber-400 text-sm sm:text-base font-semibold"></p>
-                <p class="text-white/50 text-[10px]">
-                    <i class="fa-solid fa-circle-info"></i> Yopish uchun tashqariga bosing yoki ESC
-                </p>
-            </div>
-        </div>
-    </div>
+// Telegram tokenlari
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
-    <!-- MODAL -->
-    <div id="orderModal" class="fixed inset-0 bg-neutral-900/70 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
-        <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[92vh] overflow-y-auto slide-up registon-card">
-            
-            <div class="h-2 flex">
-                <div class="flex-1 bg-gradient-to-r from-blue-900 to-blue-700"></div>
-                <div class="flex-1 bg-gradient-to-r from-amber-500 to-amber-400"></div>
-                <div class="flex-1 bg-gradient-to-r from-cyan-600 to-cyan-400"></div>
-            </div>
-            
-            <div class="p-5 sm:p-6">
-                <div class="w-12 h-1 bg-gradient-to-r from-blue-700 via-amber-500 to-cyan-500 rounded-full mx-auto mb-4 sm:hidden"></div>
-                
-                <div class="flex justify-between items-center mb-5">
-                    <h3 class="text-lg sm:text-xl font-bold text-neutral-900 font-display">Buyurtmani tasdiqlash</h3>
-                    <button type="button" onclick="closeModal()" class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 transition-colors">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                
-                <div class="wood-panel rounded-2xl p-3 sm:p-4 mb-5">
-                    <div class="w-full h-28 sm:h-32 rounded-xl overflow-hidden mb-3 bg-neutral-100 registon-frame">
-                        <img id="modalImage" src="" alt="" class="w-full h-full object-cover rounded-lg">
-                    </div>
-                    
-                    <p class="text-xs text-amber-700 font-semibold uppercase tracking-wider mb-1" id="modalCategory">Kategoriya</p>
-                    <h4 class="font-bold text-neutral-800 text-base sm:text-lg mb-3 font-display" id="modalTitle">Mebel Nomi</h4>
-                    
-                    <div class="grid grid-cols-3 gap-1.5 sm:gap-2 text-xs mb-3">
-                        <div class="bg-white/80 p-2 rounded-xl border border-amber-300/40">
-                            <span class="text-neutral-500 block mb-0.5 text-[10px]">O'lcham</span>
-                            <span class="font-bold text-neutral-800 text-[10px]" id="modalSize">-</span>
-                        </div>
-                        <div class="bg-white/80 p-2 rounded-xl border border-amber-300/40">
-                            <span class="text-neutral-500 block mb-0.5 text-[10px]">Rang</span>
-                            <span class="font-bold text-neutral-800 flex items-center gap-1 text-[10px]" id="modalColor">-</span>
-                        </div>
-                        <div class="bg-white/80 p-2 rounded-xl border border-amber-300/40">
-                            <span class="text-neutral-500 block mb-0.5 text-[10px]">Material</span>
-                            <span class="font-bold text-neutral-800 truncate block text-[10px]" id="modalMaterial">-</span>
-                        </div>
-                    </div>
-                    
-                    <div id="modalPricePanel" class="price-modern">
-                        <div class="price-modern-inner">
-                            <div class="flex items-center justify-between mb-1.5">
-                                <span id="modalPriceLabel" class="text-[10px] font-bold uppercase tracking-wider text-blue-900">Tanlangan narx</span>
-                                <span id="modalPriceBadge"></span>
-                            </div>
-                            <p id="modalPriceRange" class="text-lg sm:text-xl font-black"></p>
-                            <p id="modalPriceNote" class="text-[10px] text-neutral-500 mt-1 leading-tight"></p>
-                        </div>
-                    </div>
-                </div>
+if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+    console.warn('⚠️  Telegram tokenlari topilmadi!');
+    console.warn('   .env faylini yoki Render Environment Variables ni tekshiring');
+} else {
+    console.log('✅ Telegram tokenlari yuklandi');
+}
 
-                <form id="orderForm" onsubmit="sendOrder(event)" class="space-y-3 sm:space-y-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-neutral-700 mb-1">Ismingiz *</label>
-                        <input type="text" id="clientName" required minlength="2" placeholder="Masalan: Sanjar" 
-                               class="w-full px-4 py-3 rounded-xl border-2 border-neutral-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100 transition-all text-base">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-neutral-700 mb-1">Telefon raqamingiz *</label>
-                        <input type="tel" id="clientPhone" required placeholder="+998 90 123 45 67" 
-                               pattern="[+0-9\s\-\(\)]{9,20}"
-                               class="w-full px-4 py-3 rounded-xl border-2 border-neutral-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100 transition-all text-base">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-neutral-700 mb-1">Qo'shimcha izoh</label>
-                        <textarea id="clientNote" rows="2" placeholder="Masalan: ertaga 14:00 da qo'ng'iroq qiling" 
-                                  class="w-full px-4 py-3 rounded-xl border-2 border-neutral-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100 transition-all text-sm resize-none"></textarea>
-                    </div>
-                    
-                    <button type="submit" id="submitBtn" class="btn-registon ripple-btn w-full font-bold py-4 rounded-xl flex items-center justify-center gap-2 mt-2 text-sm sm:text-base">
-                        <i class="fa-brands fa-telegram text-lg relative z-10"></i>
-                        <span class="relative z-10">Menejerga yuborish</span>
-                    </button>
-                    
-                    <p class="text-center text-xs text-neutral-400 leading-tight">
-                        Yuborish orqali siz <span class="text-blue-900 font-semibold">menejerimiz 15 daqiqa ichida</span> siz bilan bog'lanishiga rozilik bildirasiz
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
+// ============================================
+// YORDAMCHI FUNKSIYALAR
+// ============================================
+function escapeMd(text) {
+    return String(text || '').replace(/[_*[\]()~`>#+\-=|{}.!]/g, '\\$&');
+}
 
-    <!-- HERO -->
-    <header class="relative hero-registon overflow-hidden rounded-b-[2rem] sm:rounded-b-[2.5rem] shadow-2xl">
-        
-        <div class="absolute top-0 left-0 right-0 h-1 flex z-10">
-            <div class="flex-1 bg-blue-700"></div>
-            <div class="flex-1 bg-white"></div>
-            <div class="flex-1 bg-emerald-600"></div>
-        </div>
-        
-        <div class="absolute top-10 right-6 w-20 h-20 opacity-20" style="animation: rotateSlow 30s linear infinite;">
-            <svg viewBox="0 0 100 100" fill="none" stroke="#d97706" stroke-width="1.5">
-                <path d="M50 5 L65 20 L85 20 L85 40 L100 50 L85 60 L85 80 L65 80 L50 95 L35 80 L15 80 L15 60 L0 50 L15 40 L15 20 L35 20 Z"/>
-                <circle cx="50" cy="50" r="15"/>
-            </svg>
-        </div>
-        
-        <div class="relative max-w-lg mx-auto px-5 pt-14 sm:pt-16 pb-16 sm:pb-20 text-center space-y-5 sm:space-y-6">
-            
-            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full text-[10px] sm:text-xs font-semibold tracking-widest text-amber-300 uppercase border border-amber-400/30">
-                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                <span class="font-arabic tracking-wider">Premium Uslubda</span>
-            </div>
-            
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-white font-display">
-                Siz Orzu Qilgan <br>
-                <span class="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 bg-clip-text text-transparent">
-                    Mukammal Qulaylik
-                </span>
-            </h1>
-            
-            <p class="text-blue-100/90 text-xs sm:text-sm max-w-xs mx-auto leading-relaxed">
-                Mebel Do'koni — Premium uslubda Registon naqshlari va zamonaviy dizayn uyg'unligidagi mebellar
-            </p>
-            
-            <div class="flex items-center justify-center gap-3 text-amber-400 py-1">
-                <span class="w-12 h-px bg-gradient-to-r from-transparent to-amber-400/70"></span>
-                <div class="w-4 h-4 relative">
-                    <svg viewBox="0 0 100 100" fill="#d97706">
-                        <path d="M50 5 L65 20 L85 20 L85 40 L100 50 L85 60 L85 80 L65 80 L50 95 L35 80 L15 80 L15 60 L0 50 L15 40 L15 20 L35 20 Z"/>
-                    </svg>
-                </div>
-                <span class="w-12 h-px bg-gradient-to-l from-transparent to-amber-400/70"></span>
-            </div>
-            
-            <div class="pt-2">
-                <a href="#catalog" class="wood-btn ripple-btn inline-flex items-center gap-2 font-bold px-7 sm:px-9 py-4 rounded-full text-xs sm:text-sm">
-                    <i class="fa-solid fa-couch text-base relative z-10"></i>
-                    <span class="relative z-10">Katalogni ko'rish</span>
-                    <i class="fa-solid fa-arrow-down text-xs relative z-10"></i>
-                </a>
-            </div>
-        </div>
-    </header>
+function formatUzPhone(phone) {
+    // +998 90 123 45 67 formatiga keltirish
+    const digits = String(phone).replace(/\D/g, '');
+    if (digits.length === 12 && digits.startsWith('998')) {
+        return `+${digits.slice(0,3)} ${digits.slice(3,5)} ${digits.slice(5,8)} ${digits.slice(8,10)} ${digits.slice(10,12)}`;
+    }
+    return phone;
+}
 
-    <!-- KATALOG -->
-    <main id="catalog" class="max-w-lg mx-auto px-3 sm:px-4 pt-10 sm:pt-12">
-        
-        <div class="text-center mb-6 sm:mb-8">
-            <div class="registon-divider text-xs mb-3">
-                <div class="w-5 h-5">
-                    <svg viewBox="0 0 100 100" fill="#d97706">
-                        <path d="M50 5 L65 20 L85 20 L85 40 L100 50 L85 60 L85 80 L65 80 L50 95 L35 80 L15 80 L15 60 L0 50 L15 40 L15 20 L35 20 Z"/>
-                    </svg>
-                </div>
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight font-display">
-                Mebel <span class="text-blue-900">Toifalari</span>
-            </h2>
-            <p class="text-neutral-500 text-[10px] sm:text-xs mt-2">Ehtiyojingizga mos yo'nalishni tanlang</p>
-        </div>
+// ============================================
+// API: BUYURTMA YUBORISH
+// ============================================
+app.post('/api/order', async (req, res) => {
+    try {
+        const { 
+            product, 
+            category, 
+            price, 
+            priceType,   // "custom" yoki "approx"
+            size, 
+            color, 
+            material, 
+            name, 
+            phone, 
+            note 
+        } = req.body;
 
-        <div class="grid grid-cols-3 gap-1.5 sm:gap-2 bg-white p-1.5 rounded-2xl mb-6 sm:mb-8 border border-amber-200/60 shadow-sm">
-            <button onclick="filterCategory('all')" id="btn-all" class="active-tab py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold rounded-xl transition-all duration-300">
-                Hammasi
-            </button>
-            <button onclick="filterCategory('premium')" id="btn-premium" class="text-neutral-600 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-1 hover:bg-amber-50">
-                ✨ Premium
-            </button>
-            <button onclick="filterCategory('budget')" id="btn-budget" class="text-neutral-600 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-1 hover:bg-emerald-50">
-                💰 Hamyonbop
-            </button>
-        </div>
+        // Validatsiya
+        if (!name || !phone || !product) {
+            return res.status(400).json({ 
+                success: false, 
+                error: "Ism, telefon va mahsulot majburiy" 
+            });
+        }
 
-        <div id="productsContainer" class="space-y-6 sm:space-y-8"></div>
-    </main>
+        if (name.length < 2) {
+            return res.status(400).json({ 
+                success: false, 
+                error: "Ism juda qisqa" 
+            });
+        }
 
-    <!-- FOOTER -->
-    <footer class="mt-16 sm:mt-20 relative overflow-hidden" style="background: linear-gradient(180deg, #faf8f3 0%, #fef3c7 100%);">
-        
-        <div class="absolute inset-0 opacity-5"
-             style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22 viewBox=%220 0 160 160%22%3E%3Cg fill=%22none%22 stroke=%22%230c4a6e%22 stroke-width=%221%22%3E%3Cpath d=%22M80 20 L95 35 L115 35 L130 50 L145 65 L145 85 L160 80 L145 75 L145 95 L130 110 L115 125 L95 125 L80 140 L65 125 L45 125 L30 110 L15 95 L15 75 L0 80 L15 85 L15 65 L30 50 L45 35 L65 35 Z%22/%3E%3C/g%3E%3C/svg%3E');"></div>
-        
-        <div class="h-1 flex">
-            <div class="flex-1 bg-blue-700"></div>
-            <div class="flex-1 bg-white"></div>
-            <div class="flex-1 bg-emerald-600"></div>
-        </div>
-        
-        <div class="relative max-w-lg mx-auto px-4 py-10 sm:py-12">
-            <div class="text-center space-y-4">
-                
-                <div class="registon-divider text-xs">
-                    <div class="w-6 h-6">
-                        <svg viewBox="0 0 100 100" fill="#d97706">
-                            <path d="M50 5 L65 20 L85 20 L85 40 L100 50 L85 60 L85 80 L65 80 L50 95 L35 80 L15 80 L15 60 L0 50 L15 40 L15 20 L35 20 Z"/>
-                            <circle cx="50" cy="50" r="12" fill="#faf8f3"/>
-                            <circle cx="50" cy="50" r="6" fill="#d97706"/>
-                        </svg>
-                    </div>
-                </div>
-                
-                <h3 class="text-xl sm:text-2xl font-black text-neutral-900 font-display">
-                    MEBEL <span class="text-amber-600">DO'KONI</span>
-                </h3>
-                
-                <p class="text-[10px] sm:text-xs text-neutral-600 max-w-xs mx-auto leading-relaxed">
-                    Premium uslubda Registon naqshlari va o'zbek an'analari uyg'unligida yaratilgan mebellar
-                </p>
-                
-                <div class="flex justify-center gap-3 sm:gap-4 pt-3">
-                    <a href="tel:+998901234567" class="w-11 h-11 rounded-full bg-white border-2 border-blue-800/30 flex items-center justify-center text-blue-900 hover:bg-blue-900 hover:text-white hover:border-blue-900 transition-all shadow-sm">
-                        <i class="fa-solid fa-phone text-sm"></i>
-                    </a>
-                    <a href="https://t.me/mebeldokoni" target="_blank" class="w-11 h-11 rounded-full bg-white border-2 border-blue-500/30 flex items-center justify-center text-blue-500 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all shadow-sm">
-                        <i class="fa-brands fa-telegram text-sm"></i>
-                    </a>
-                    <a href="https://instagram.com/mebeldokoni" target="_blank" class="w-11 h-11 rounded-full bg-white border-2 border-pink-500/30 flex items-center justify-center text-pink-600 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all shadow-sm">
-                        <i class="fa-brands fa-instagram text-sm"></i>
-                    </a>
-                </div>
-                
-                <div class="registon-divider text-xs pt-3">
-                    <i class="fa-solid fa-diamond text-amber-600 text-[8px]"></i>
-                </div>
-                
-                <p class="text-[10px] text-neutral-500">© 2025 Mebel Do'koni. Barcha huquqlar himoyalangan.</p>
-                <p class="text-[10px] text-amber-700 font-semibold flex items-center justify-center gap-1">
-                    🇺🇿 O'zbekistonda ishlab chiqarilgan
-                </p>
-            </div>
-        </div>
-    </footer>
+        const phoneRegex = /^[+0-9\s\-\(\)]{9,20}$/;
+        if (!phoneRegex.test(phone)) {
+            return res.status(400).json({ 
+                success: false, 
+                error: "Telefon raqam formati xato" 
+            });
+        }
 
-    <script>
-        // ============================================
-        // MAHSULOTLAR
-        // ============================================
-        const products = [
+        // ⭐ NARX TURIGA QARAB XABAR
+        let priceLine;
+        if (priceType === 'custom') {
+            priceLine = [
+                `💰 *Narx:* ⚠️ Aloqada aniqlanadi`,
+                `📞 _Maxsus o'lcham — menejer siz bilan bog'lanadi_`
+            ].join('\n');
+        } else {
+            priceLine = [
+                `💰 *Narx:* ${escapeMd(price)}`,
+                `📏 _Taxminiy — aniq narx o'lchovdan keyin tasdiqlanadi_`
+            ].join('\n');
+        }
+
+        // Telegram xabar matni
+        const message = [
+            `🔥 *YANGI MEBEL BUYURTMASI!*`,
+            `━━━━━━━━━━━━━━━`,
+            ``,
+            `🛍 *Mahsulot:* ${escapeMd(product)}`,
+            `🗂 *Toifa:* ${escapeMd(category)}`,
+            priceLine,
+            ``,
+            `📐 *O'lchami:* ${escapeMd(size)}`,
+            `🎨 *Rangi:* ${escapeMd(color)}`,
+            `🪵 *Materiali:* ${escapeMd(material)}`,
+            ``,
+            `━━━━━━━━━━━━━━━`,
+            ``,
+            `👤 *Mijoz:* ${escapeMd(name)}`,
+            `📞 *Telefon:* ${escapeMd(formatUzPhone(phone))}`,
+            note ? `📝 *Izoh:* ${escapeMd(note)}` : '',
+            ``,
+            `⏰ *Vaqt:* ${new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' })}`
+        ].filter(Boolean).join('\n');
+
+        // Telegram'ga yuborish
+        const telegramResponse = await fetch(
+            `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
             {
-                id: 1,
-                name: "Sherlok Shaxona Divani",
-                category: "premium",
-                categoryLabel: "✨ Premium To'plam",
-                priceRange: { min: 12500000, max: 18500000 },
-                sizes: [
-                    { label: "220x100 sm", extra: 0 },
-                    { label: "240x110 sm", extra: 1500000 },
-                    { label: "Maxsus o'lcham", extra: null, custom: true }
-                ],
-                colors: [
-                    { name: "To'q Ko'k", code: "#1e3a8a", extra: 0, image: "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1200&q=90" },
-                    { name: "Zumrad Yashil", code: "#064e3b", extra: 500000, image: "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1200&q=90" },
-                    { name: "Oltin Sariq", code: "#b45309", extra: 800000, image: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=1200&q=90" }
-                ],
-                materials: [
-                    { name: "Turkiya Veluri", extra: 0 },
-                    { name: "Premium Zamsh", extra: 1200000 },
-                    { name: "Tabiiy Charm", extra: 2500000 }
-                ]
-            },
-            {
-                id: 2,
-                name: "Minimalist Komfort Divan",
-                category: "budget",
-                categoryLabel: "💰 Hamyonbop Shinamlik",
-                priceRange: { min: 5800000, max: 7800000 },
-                sizes: [
-                    { label: "180x90 sm", extra: 0 },
-                    { label: "200x95 sm", extra: 600000 },
-                    { label: "Maxsus o'lcham", extra: null, custom: true }
-                ],
-                colors: [
-                    { name: "Kulrang", code: "#6b7280", extra: 0, image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1200&q=90" },
-                    { name: "Sut Rang", code: "#f3f4f6", extra: 200000, image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=90" },
-                    { name: "Shokolad", code: "#451a03", extra: 300000, image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1200&q=90" }
-                ],
-                materials: [
-                    { name: "Mahalliy Mato", extra: 0 },
-                    { name: "Jakkard", extra: 400000 }
-                ]
-            },
-            {
-                id: 3,
-                name: "Eksklyuziv Krovat Empire",
-                category: "premium",
-                categoryLabel: "✨ Premium To'plam",
-                priceRange: { min: 18000000, max: 26000000 },
-                sizes: [
-                    { label: "200x180 sm", extra: 0 },
-                    { label: "220x200 sm", extra: 2500000 },
-                    { label: "Maxsus o'lcham", extra: null, custom: true }
-                ],
-                colors: [
-                    { name: "Oq", code: "#ffffff", extra: 0, image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200&q=90" },
-                    { name: "Grafit", code: "#374151", extra: 400000, image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1200&q=90" },
-                    { name: "Qora", code: "#111827", extra: 600000, image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&q=90" }
-                ],
-                materials: [
-                    { name: "Korteks", extra: 0 },
-                    { name: "Italiya Charm", extra: 1800000 }
-                ]
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
             }
-        ];
+        );
 
-        let selectedConfig = {};
-        let currentFilter = 'all';
-        let currentActiveProductId = null;
+        const result = await telegramResponse.json();
 
-        // ============================================
-        // YORDAMCHI FUNKSIYALAR
-        // ============================================
-        function formatPrice(num) {
-            return num.toLocaleString('uz-UZ') + " so'm";
-        }
-
-        function calculateSelectedPrice(product, config) {
-            const selectedSize = product.sizes.find(s => s.label === config.size);
-            if (selectedSize?.custom) {
-                return { display: "Aloqada aniqlanadi", isCustom: true };
-            }
-            let total = product.priceRange.min;
-            total += selectedSize?.extra || 0;
-            const selectedColor = product.colors.find(c => c.name === config.color);
-            total += selectedColor?.extra || 0;
-            const selectedMaterial = product.materials.find(m => m.name === config.material);
-            total += selectedMaterial?.extra || 0;
-            return { display: formatPrice(total), numeric: total, isCustom: false };
-        }
-
-        // ⭐ NARX PANEL HTML
-        function getPricePanelHtml(priceInfo) {
-            if (priceInfo.isCustom) {
-                return `
-                    <div class="price-modern">
-                        <div class="price-modern-inner">
-                            <div class="flex items-center justify-between mb-1.5">
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-blue-900">Yakuniy narx</span>
-                                <span class="contact-badge"><i class="fa-solid fa-comments text-[8px]"></i> Aloqada</span>
-                            </div>
-                            <p class="text-lg sm:text-xl font-black bg-gradient-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent">Aloqada aniqlanadi</p>
-                            <p class="text-[10px] text-neutral-500 mt-1 leading-tight flex items-center gap-1">
-                                <i class="fa-solid fa-headset text-amber-600"></i>
-                                Maxsus o'lcham uchun menejer bilan bog'laning
-                            </p>
-                        </div>
-                    </div>
-                `;
-            }
-            return `
-                <div class="price-modern">
-                    <div class="price-modern-inner">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-900">Tanlangan narx</span>
-                            <span class="approx-badge"><i class="fa-solid fa-calculator text-[8px]"></i> Taxminiy</span>
-                        </div>
-                        <p class="text-lg sm:text-xl font-black bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent">${priceInfo.display}</p>
-                        <p class="text-[10px] text-neutral-500 mt-1 leading-tight flex items-center gap-1">
-                            <i class="fa-solid fa-circle-info text-amber-600"></i>
-                            Aniq narx o'lchovdan keyin tasdiqlanadi
-                        </p>
-                    </div>
-                </div>
-            `;
-        }
-
-        // ============================================
-        // MAHSULOTLARNI CHIZISH
-        // ============================================
-        function renderProducts(filter = 'all') {
-            const container = document.getElementById('productsContainer');
-            container.innerHTML = '';
-            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
-
-            filtered.forEach(product => {
-                if (!selectedConfig[product.id]) {
-                    selectedConfig[product.id] = {
-                        size: product.sizes[0].label,
-                        color: product.colors[0].name,
-                        colorCode: product.colors[0].code,
-                        colorImage: product.colors[0].image,
-                        material: product.materials[0].name
-                    };
-                }
-                const config = selectedConfig[product.id];
-                const priceInfo = calculateSelectedPrice(product, config);
-                const currentImage = config.colorImage || product.colors[0].image;
-
-                let sizesHtml = product.sizes.map((s, idx) => {
-                    const isActive = config.size === s.label;
-                    const extraText = s.custom ? '' : (s.extra > 0 ? ` <span class="text-[9px] opacity-70">+${(s.extra/1000000).toFixed(1)}mln</span>` : '');
-                    const cls = isActive 
-                        ? 'border-amber-500 bg-amber-50 text-amber-900 font-bold shadow-sm' 
-                        : 'border-neutral-200 text-neutral-600 bg-white hover:border-amber-400';
-                    return `<button type="button" 
-                                    data-product="${product.id}" 
-                                    data-type="size" 
-                                    data-idx="${idx}"
-                                    class="size-btn px-2 py-2 rounded-lg text-[10px] font-medium border-2 transition-all ${cls}">${s.label}${extraText}</button>`;
-                }).join('');
-
-                let colorsHtml = product.colors.map((c, idx) => {
-                    const isActive = config.color === c.name;
-                    return `
-                        <button type="button" 
-                                data-product="${product.id}" 
-                                data-type="color" 
-                                data-idx="${idx}"
-                                class="color-btn-el color-btn ${isActive ? 'active' : ''}" 
-                                style="background-color: ${c.code};" 
-                                title="${c.name}${c.extra > 0 ? ' (+' + (c.extra/1000000).toFixed(1) + ' mln)' : ''}">
-                            ${isActive ? '<i class="fa-solid fa-check absolute inset-0 flex items-center justify-center text-white text-sm font-bold" style="text-shadow: 0 0 4px rgba(0,0,0,0.9)"></i>' : ''}
-                        </button>
-                    `;
-                }).join('');
-
-                let materialsHtml = product.materials.map((m, idx) => {
-                    const isActive = config.material === m.name;
-                    const extraText = m.extra > 0 ? ` <span class="text-[9px] opacity-70">+${(m.extra/1000000).toFixed(1)}mln</span>` : '';
-                    const cls = isActive 
-                        ? 'border-amber-500 bg-amber-50 text-amber-900 font-bold shadow-sm' 
-                        : 'border-neutral-200 text-neutral-600 bg-white hover:border-amber-400';
-                    return `<button type="button" 
-                                    data-product="${product.id}" 
-                                    data-type="material" 
-                                    data-idx="${idx}"
-                                    class="material-btn px-3 py-2 rounded-lg text-[10px] font-medium border-2 transition-all ${cls}">${m.name}${extraText}</button>`;
-                }).join('');
-
-                const productCard = `
-                    <div class="registon-card hover-lift" data-product-card="${product.id}">
-                        <div class="relative product-image group overflow-hidden m-3 sm:m-4 rounded-2xl registon-frame">
-                            <div class="relative w-full h-full overflow-hidden rounded-xl">
-                                <img data-product-img="${product.id}"
-                                     src="${currentImage}" 
-                                     alt="${product.name}" 
-                                     loading="lazy" 
-                                     class="w-full h-full object-cover cursor-pointer transition-transform duration-700 group-hover:scale-110"
-                                     onclick="openLightbox('${currentImage}', '${product.name.replace(/'/g, "\\'")}', '${priceInfo.display}')">
-                                
-                                <div class="absolute inset-0 pattern-overlay pointer-events-none"></div>
-                                
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center pointer-events-none">
-                                    <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full w-16 h-16 flex items-center justify-center shadow-2xl transform scale-90 group-hover:scale-100 border-2 border-amber-400"
-                                         style="background: linear-gradient(135deg, rgba(12,74,110,0.95), rgba(217,119,6,0.95));">
-                                        <i class="fa-solid fa-magnifying-glass-plus text-white text-2xl"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div data-color-badge="${product.id}" class="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-bold text-neutral-900 shadow-lg flex items-center gap-1.5 border border-amber-400/50">
-                                <span class="w-3 h-3 rounded-full border-2 border-white shadow-sm" style="background-color: ${config.colorCode};"></span>
-                                <span>${config.color}</span>
-                            </div>
-                            
-                            <span class="absolute top-3 left-3 sm:top-4 sm:left-4 badge-registon px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold shadow-lg">
-                                ${product.categoryLabel}
-                            </span>
-                            
-                            <div class="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-3 py-1.5 rounded-full text-[10px] font-bold text-white shadow-lg border border-amber-400/30"
-                                 style="background: linear-gradient(135deg, #0c4a6e, #082f49);">
-                                <i class="fa-solid fa-tag text-[8px] mr-1 text-amber-300"></i>
-                                ${formatPrice(product.priceRange.min)}
-                            </div>
-                        </div>
-
-                        <div class="px-4 sm:px-5 pb-5 sm:pb-6 space-y-4 sm:space-y-5">
-                            
-                            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 font-display leading-tight">${product.name}</h3>
-                            
-                            <div class="registon-divider text-[8px]">
-                                <div class="w-3 h-3">
-                                    <svg viewBox="0 0 100 100" fill="#d97706">
-                                        <path d="M50 5 L65 20 L85 20 L85 40 L100 50 L85 60 L85 80 L65 80 L50 95 L35 80 L15 80 L15 60 L0 50 L15 40 L15 20 L35 20 Z"/>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label class="text-[10px] sm:text-xs font-bold text-neutral-500 uppercase tracking-wider flex items-center gap-1.5">
-                                    <span class="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center">
-                                        <i class="fa-solid fa-ruler-combined text-blue-800 text-[9px]"></i>
-                                    </span>
-                                    O'lcham
-                                </label>
-                                <div class="grid grid-cols-3 gap-1.5 sm:gap-2">${sizesHtml}</div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label class="text-[10px] sm:text-xs font-bold text-neutral-500 uppercase tracking-wider flex items-center gap-1.5">
-                                    <span class="w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center">
-                                        <i class="fa-solid fa-palette text-amber-700 text-[9px]"></i>
-                                    </span>
-                                    Rang: <span data-color-label="${product.id}" class="text-neutral-800 font-bold">${config.color}</span>
-                                </label>
-                                <div class="flex gap-2 sm:gap-3 pt-1">${colorsHtml}</div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label class="text-[10px] sm:text-xs font-bold text-neutral-500 uppercase tracking-wider flex items-center gap-1.5">
-                                    <span class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center">
-                                        <i class="fa-solid fa-layer-group text-emerald-700 text-[9px]"></i>
-                                    </span>
-                                    Material
-                                </label>
-                                <div class="flex flex-wrap gap-1.5 sm:gap-2">${materialsHtml}</div>
-                            </div>
-
-                            <div data-price-panel="${product.id}">${getPricePanelHtml(priceInfo)}</div>
-
-                            <div class="pt-1">
-                                <button type="button" onclick="openModal(${product.id})" class="wood-btn ripple-btn w-full font-bold py-4 rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base">
-                                    <i class="fa-brands fa-telegram text-lg relative z-10"></i>
-                                    <span class="relative z-10">Menejerga yuborish</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += productCard;
-            });
-
-            // ⭐ EVENT DELEGATION - MUAMMONI HAL QILADI
-            attachEventListeners();
-        }
-
-        // ============================================
-        // ⭐ EVENT DELEGATION
-        // ============================================
-        function attachEventListeners() {
-            // O'lcham tugmalari
-            document.querySelectorAll('.size-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const productId = parseInt(this.dataset.product);
-                    const idx = parseInt(this.dataset.idx);
-                    const product = products.find(p => p.id === productId);
-                    const size = product.sizes[idx];
-                    
-                    selectedConfig[productId].size = size.label;
-                    updateProductUI(productId);
-                });
-            });
-
-            // Rang tugmalari
-            document.querySelectorAll('.color-btn-el').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const productId = parseInt(this.dataset.product);
-                    const idx = parseInt(this.dataset.idx);
-                    const product = products.find(p => p.id === productId);
-                    const color = product.colors[idx];
-                    
-                    selectedConfig[productId].color = color.name;
-                    selectedConfig[productId].colorCode = color.code;
-                    selectedConfig[productId].colorImage = color.image;
-                    updateProductUI(productId);
-                });
-            });
-
-            // Material tugmalari
-            document.querySelectorAll('.material-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const productId = parseInt(this.dataset.product);
-                    const idx = parseInt(this.dataset.idx);
-                    const product = products.find(p => p.id === productId);
-                    const material = product.materials[idx];
-                    
-                    selectedConfig[productId].material = material.name;
-                    updateProductUI(productId);
-                });
+        if (!result.ok) {
+            console.error('❌ Telegram xatosi:', result);
+            return res.status(500).json({ 
+                success: false, 
+                error: "Telegram'ga yuborishda xatolik" 
             });
         }
 
-        // ============================================
-        // UI YANGILASH
-        // ============================================
-        function updateProductUI(productId) {
-            const product = products.find(p => p.id === productId);
-            const config = selectedConfig[productId];
-            const priceInfo = calculateSelectedPrice(product, config);
-            const currentImage = config.colorImage || product.colors[0].image;
-            
-            // Rasm
-            const imgEl = document.querySelector(`[data-product-img="${productId}"]`);
-            if (imgEl) {
-                imgEl.src = currentImage;
-                imgEl.setAttribute('onclick', `openLightbox('${currentImage}', '${product.name.replace(/'/g, "\\'")}', '${priceInfo.display}')`);
-            }
-            
-            // Rang belgisi
-            const colorBadge = document.querySelector(`[data-color-badge="${productId}"]`);
-            if (colorBadge) {
-                colorBadge.innerHTML = `
-                    <span class="w-3 h-3 rounded-full border-2 border-white shadow-sm" style="background-color: ${config.colorCode};"></span>
-                    <span>${config.color}</span>
-                `;
-            }
-            
-            // Rang nomi
-            const colorLabel = document.querySelector(`[data-color-label="${productId}"]`);
-            if (colorLabel) {
-                colorLabel.innerText = config.color;
-            }
-            
-            // Narx panel
-            const priceEl = document.querySelector(`[data-price-panel="${productId}"]`);
-            if (priceEl) {
-                priceEl.innerHTML = getPricePanelHtml(priceInfo);
-            }
-            
-            // O'lcham tugmalari
-            const sizeBtns = document.querySelectorAll(`.size-btn[data-product="${productId}"]`);
-            sizeBtns.forEach((btn, idx) => {
-                const s = product.sizes[idx];
-                if (config.size === s.label) {
-                    btn.className = "size-btn px-2 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-amber-500 bg-amber-50 text-amber-900 font-bold shadow-sm";
-                } else {
-                    btn.className = "size-btn px-2 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-neutral-200 text-neutral-600 bg-white hover:border-amber-400";
-                }
-            });
-            
-            // Rang tugmalari
-            const colorBtns = document.querySelectorAll(`.color-btn-el[data-product="${productId}"]`);
-            colorBtns.forEach((btn, idx) => {
-                const c = product.colors[idx];
-                if (config.color === c.name) {
-                    btn.className = "color-btn-el color-btn active";
-                    if (!btn.querySelector('.fa-check')) {
-                        const check = document.createElement('i');
-                        check.className = 'fa-solid fa-check absolute inset-0 flex items-center justify-center text-white text-sm font-bold';
-                        check.style.textShadow = '0 0 4px rgba(0,0,0,0.9)';
-                        btn.appendChild(check);
-                    }
-                } else {
-                    btn.className = "color-btn-el color-btn";
-                    const check = btn.querySelector('.fa-check');
-                    if (check) check.remove();
-                }
-            });
-            
-            // Material tugmalari
-            const materialBtns = document.querySelectorAll(`.material-btn[data-product="${productId}"]`);
-            materialBtns.forEach((btn, idx) => {
-                const m = product.materials[idx];
-                if (config.material === m.name) {
-                    btn.className = "material-btn px-3 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-amber-500 bg-amber-50 text-amber-900 font-bold shadow-sm";
-                } else {
-                    btn.className = "material-btn px-3 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-neutral-200 text-neutral-600 bg-white hover:border-amber-400";
-                }
-            });
-        }
+        console.log('✅ Yangi buyurtma:', name, '|', product);
+        res.json({ success: true, message: "Buyurtma qabul qilindi" });
 
-        // ============================================
-        // FILTR
-        // ============================================
-        function filterCategory(category) {
-            currentFilter = category;
-            ['all', 'premium', 'budget'].forEach(cat => {
-                const btn = document.getElementById(`btn-${cat}`);
-                btn.classList.remove('active-tab', 'text-white');
-                btn.classList.add('text-neutral-600');
-            });
-            document.getElementById(`btn-${category}`).classList.add('active-tab');
-            document.getElementById(`btn-${category}`).classList.remove('text-neutral-600');
-            renderProducts(category);
-        }
-
-        // ============================================
-        // LIGHTBOX
-        // ============================================
-        function openLightbox(imageSrc, title, price) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImage = document.getElementById('lightboxImage');
-            
-            lightboxImage.src = imageSrc;
-            lightboxImage.alt = title;
-            
-            document.getElementById('lightboxTitle').innerText = title;
-            document.getElementById('lightboxPrice').innerText = price;
-            
-            lightbox.classList.remove('hidden');
-            lightbox.classList.add('flex', 'active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox(event) {
-            if (event && event.target.tagName === 'IMG') return;
-            
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.add('hidden');
-            lightbox.classList.remove('flex', 'active');
-            document.body.style.overflow = 'auto';
-        }
-
-        document.getElementById('lightbox').addEventListener('click', function(e) {
-            if (e.target === this) closeLightbox();
+    } catch (error) {
+        console.error('❌ Server xatosi:', error);
+        res.status(500).json({ 
+            success: false, 
+            error: "Serverda xatolik" 
         });
+    }
+});
 
-        // ============================================
-        // MODAL
-        // ============================================
-        function openModal(productId) {
-            currentActiveProductId = productId;
-            const product = products.find(p => p.id === productId);
-            const config = selectedConfig[productId];
-            const priceInfo = calculateSelectedPrice(product, config);
-            const currentImage = config.colorImage || product.colors[0].image;
+// ============================================
+// HEALTH CHECK
+// ============================================
+app.get('/health', (req, res) => {
+    res.json({ 
+        status: 'ok', 
+        timestamp: new Date().toISOString(),
+        telegramConfigured: !!(TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID)
+    });
+});
 
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = currentImage;
+// ============================================
+// BARCHA BOSHQA SO'ROVLAR → index.html
+// ============================================
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-            document.getElementById('modalTitle').innerText = product.name;
-            document.getElementById('modalCategory').innerText = product.categoryLabel;
-            document.getElementById('modalSize').innerText = config.size;
-            document.getElementById('modalMaterial').innerText = config.material;
-            document.getElementById('modalColor').innerHTML = `<span class="w-3 h-3 rounded-full inline-block border border-neutral-300" style="background-color: ${config.colorCode};"></span><span>${config.color}</span>`;
-
-            if (priceInfo.isCustom) {
-                document.getElementById('modalPriceLabel').innerText = 'Yakuniy narx';
-                document.getElementById('modalPriceBadge').innerHTML = '<span class="contact-badge"><i class="fa-solid fa-comments text-[8px]"></i> Aloqada</span>';
-                document.getElementById('modalPriceRange').innerText = "Aloqada aniqlanadi";
-                document.getElementById('modalPriceRange').className = "text-lg sm:text-xl font-black bg-gradient-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent";
-                document.getElementById('modalPriceNote').innerHTML = '<i class="fa-solid fa-headset text-amber-600"></i> Maxsus o\'lcham uchun menejer bilan bog\'laning';
-            } else {
-                document.getElementById('modalPriceLabel').innerText = 'Tanlangan narx';
-                document.getElementById('modalPriceBadge').innerHTML = '<span class="approx-badge"><i class="fa-solid fa-calculator text-[8px]"></i> Taxminiy</span>';
-                document.getElementById('modalPriceRange').innerText = priceInfo.display;
-                document.getElementById('modalPriceRange').className = "text-lg sm:text-xl font-black bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent";
-                document.getElementById('modalPriceNote').innerHTML = '<i class="fa-solid fa-circle-info text-amber-600"></i> Aniq narx o\'lchovdan keyin tasdiqlanadi';
-            }
-
-            document.getElementById('orderModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('orderModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-            document.getElementById('orderForm').reset();
-        }
-
-        document.getElementById('orderModal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
-
-        // ============================================
-        // TOAST
-        // ============================================
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.innerText = message;
-            toast.className = `fixed top-20 left-1/2 -translate-x-1/2 px-6 py-3 rounded-2xl shadow-2xl text-white font-semibold z-[80] toast-animate max-w-[90vw] text-center ${type === 'success' ? 'bg-emerald-600 border-2 border-emerald-400' : 'bg-red-600 border-2 border-red-400'}`;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 4000);
-        }
-
-        // ============================================
-        // TELEGRAM
-        // ============================================
-        async function sendOrder(event) {
-            event.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            const clientName = document.getElementById('clientName').value.trim();
-            const clientPhone = document.getElementById('clientPhone').value.trim();
-            const clientNote = document.getElementById('clientNote').value.trim();
-
-            const phoneRegex = /^[+0-9\s\-\(\)]{9,20}$/;
-            if (!phoneRegex.test(clientPhone)) {
-                showToast("Iltimos, to'g'ri telefon raqam kiriting", "error");
-                return;
-            }
-
-            const product = products.find(p => p.id === currentActiveProductId);
-            const config = selectedConfig[currentActiveProductId];
-            const priceInfo = calculateSelectedPrice(product, config);
-
-            const orderData = {
-                product: product.name,
-                category: product.categoryLabel,
-                price: priceInfo.isCustom ? "Aloqada aniqlanadi" : priceInfo.display,
-                priceType: priceInfo.isCustom ? "custom" : "approx",
-                size: config.size,
-                color: config.color,
-                material: config.material,
-                name: clientName,
-                phone: clientPhone,
-                note: clientNote
-            };
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin relative z-10"></i> <span class="relative z-10">Yuborilmoqda...</span>';
-
-            try {
-                const response = await fetch('/api/order', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(orderData)
-                });
-                const result = await response.json();
-                if (result.success) {
-                    showToast("✅ Buyurtmangiz yuborildi!", "success");
-                    document.getElementById('orderForm').reset();
-                    setTimeout(closeModal, 1500);
-                } else {
-                    showToast("❌ " + (result.error || "Xatolik"), "error");
-                }
-            } catch (error) {
-                console.error(error);
-                showToast("❌ Tarmoq xatoligi", "error");
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-brands fa-telegram text-lg relative z-10"></i> <span class="relative z-10">Menejerga yuborish</span>';
-            }
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeLightbox();
-                closeModal();
-            }
-        });
-
-        renderProducts();
-    </script>
-</body>
-</html>
+// ============================================
+// SERVERNI ISHGA TUSHIRISH
+// ============================================
+app.listen(PORT, () => {
+    console.log(`🚀 Server ${PORT} portda ishga tushdi`);
+    console.log(`📱 Telegram: ${TELEGRAM_BOT_TOKEN ? '✅ Sozlangan' : '❌ Sozlanmagan'}`);
+    console.log(`🌍 http://localhost:${PORT}`);
+});
