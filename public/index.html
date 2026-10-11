@@ -112,8 +112,6 @@
             box-shadow: 0 8px 24px rgba(120, 53, 15, 0.45), inset 0 1px 0 rgba(254, 243, 199, 0.25);
         }
         
-        .wood-btn:active { transform: translateY(0); }
-        
         .ripple-btn { position: relative; overflow: hidden; }
         .ripple-btn::after {
             content: '';
@@ -348,7 +346,6 @@
         <div class="relative max-w-6xl w-full flex flex-col items-center" onclick="event.stopPropagation()">
             <div class="relative w-full flex items-center justify-center p-3 rounded-3xl"
                  style="background: linear-gradient(135deg, rgba(12,74,110,0.4), rgba(217,119,6,0.3), rgba(6,182,212,0.3));">
-                
                 <div class="absolute top-1 left-1 w-8 h-8 border-t-2 border-l-2 border-amber-400/60 rounded-tl-2xl"></div>
                 <div class="absolute top-1 right-1 w-8 h-8 border-t-2 border-r-2 border-amber-400/60 rounded-tr-2xl"></div>
                 <div class="absolute bottom-1 left-1 w-8 h-8 border-b-2 border-l-2 border-amber-400/60 rounded-bl-2xl"></div>
@@ -370,83 +367,83 @@
 
     <!-- MODAL -->
     <div id="orderModal" class="fixed inset-0 bg-neutral-900/70 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
-        <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[92vh] overflow-y-auto slide-up registon-card">
+        <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[95vh] overflow-y-auto slide-up registon-card">
             
-            <div class="h-2 flex">
+            <div class="h-1.5 flex sticky top-0 z-20">
                 <div class="flex-1 bg-gradient-to-r from-blue-900 to-blue-700"></div>
                 <div class="flex-1 bg-gradient-to-r from-amber-500 to-amber-400"></div>
                 <div class="flex-1 bg-gradient-to-r from-cyan-600 to-cyan-400"></div>
             </div>
             
-            <div class="p-5 sm:p-6">
-                <div class="w-12 h-1 bg-gradient-to-r from-blue-700 via-amber-500 to-cyan-500 rounded-full mx-auto mb-4 sm:hidden"></div>
+            <div class="p-4 sm:p-5">
+                <div class="w-10 h-1 bg-gradient-to-r from-blue-700 via-amber-500 to-cyan-500 rounded-full mx-auto mb-3 sm:hidden"></div>
                 
-                <div class="flex justify-between items-center mb-5">
-                    <h3 class="text-lg sm:text-xl font-bold text-neutral-900 font-display">Buyurtmani tasdiqlash</h3>
-                    <button type="button" onclick="closeModal()" class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 transition-colors">
-                        <i class="fa-solid fa-xmark"></i>
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-base sm:text-lg font-bold text-neutral-900 font-display">Buyurtmani tasdiqlash</h3>
+                    <button type="button" onclick="closeModal()" class="w-7 h-7 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 transition-colors">
+                        <i class="fa-solid fa-xmark text-sm"></i>
                     </button>
                 </div>
                 
-                <div class="wood-panel rounded-2xl p-3 sm:p-4 mb-5">
-                    <div class="w-full h-28 sm:h-32 rounded-xl overflow-hidden mb-3 bg-neutral-100 registon-frame">
+                <div class="wood-panel rounded-xl p-2.5 mb-3">
+                    <div class="w-full h-20 rounded-lg overflow-hidden mb-2 bg-neutral-100">
                         <img id="modalImage" src="" alt="" class="w-full h-full object-cover rounded-lg">
                     </div>
                     
-                    <p class="text-xs text-amber-700 font-semibold uppercase tracking-wider mb-1" id="modalCategory">Kategoriya</p>
-                    <h4 class="font-bold text-neutral-800 text-base sm:text-lg mb-3 font-display" id="modalTitle">Mebel Nomi</h4>
+                    <p class="text-[10px] text-amber-700 font-semibold uppercase tracking-wider mb-0.5" id="modalCategory">Kategoriya</p>
+                    <h4 class="font-bold text-neutral-800 text-sm sm:text-base mb-2 font-display" id="modalTitle">Mebel Nomi</h4>
                     
-                    <div class="grid grid-cols-3 gap-1.5 sm:gap-2 text-xs mb-3">
-                        <div class="bg-white/80 p-2 rounded-xl border border-amber-300/40">
-                            <span class="text-neutral-500 block mb-0.5 text-[10px]">O'lcham</span>
-                            <span class="font-bold text-neutral-800 text-[10px]" id="modalSize">-</span>
+                    <div class="grid grid-cols-3 gap-1 text-[10px] mb-2">
+                        <div class="bg-white/80 p-1.5 rounded-lg border border-amber-300/40">
+                            <span class="text-neutral-500 block mb-0.5 text-[9px]">O'lcham</span>
+                            <span class="font-bold text-neutral-800 text-[9px] truncate block" id="modalSize">-</span>
                         </div>
-                        <div class="bg-white/80 p-2 rounded-xl border border-amber-300/40">
-                            <span class="text-neutral-500 block mb-0.5 text-[10px]">Rang</span>
-                            <span class="font-bold text-neutral-800 flex items-center gap-1 text-[10px]" id="modalColor">-</span>
+                        <div class="bg-white/80 p-1.5 rounded-lg border border-amber-300/40">
+                            <span class="text-neutral-500 block mb-0.5 text-[9px]">Rang</span>
+                            <span class="font-bold text-neutral-800 flex items-center gap-1 text-[9px] truncate" id="modalColor">-</span>
                         </div>
-                        <div class="bg-white/80 p-2 rounded-xl border border-amber-300/40">
-                            <span class="text-neutral-500 block mb-0.5 text-[10px]">Material</span>
-                            <span class="font-bold text-neutral-800 truncate block text-[10px]" id="modalMaterial">-</span>
+                        <div class="bg-white/80 p-1.5 rounded-lg border border-amber-300/40">
+                            <span class="text-neutral-500 block mb-0.5 text-[9px]">Material</span>
+                            <span class="font-bold text-neutral-800 truncate block text-[9px]" id="modalMaterial">-</span>
                         </div>
                     </div>
                     
                     <div id="modalPricePanel" class="price-modern">
-                        <div class="price-modern-inner">
-                            <div class="flex items-center justify-between mb-1.5">
-                                <span id="modalPriceLabel" class="text-[10px] font-bold uppercase tracking-wider text-blue-900">Tanlangan narx</span>
+                        <div class="price-modern-inner" style="padding: 10px 12px;">
+                            <div class="flex items-center justify-between mb-1">
+                                <span id="modalPriceLabel" class="text-[9px] font-bold uppercase tracking-wider text-blue-900">Tanlangan narx</span>
                                 <span id="modalPriceBadge"></span>
                             </div>
-                            <p id="modalPriceRange" class="text-lg sm:text-xl font-black"></p>
-                            <p id="modalPriceNote" class="text-[10px] text-neutral-500 mt-1 leading-tight"></p>
+                            <p id="modalPriceRange" class="text-base sm:text-lg font-black"></p>
+                            <p id="modalPriceNote" class="text-[9px] text-neutral-500 mt-0.5 leading-tight"></p>
                         </div>
                     </div>
                 </div>
 
-                <form id="orderForm" onsubmit="sendOrder(event)" class="space-y-3 sm:space-y-4">
+                <form id="orderForm" onsubmit="sendOrder(event)" class="space-y-2.5">
                     <div>
-                        <label class="block text-sm font-semibold text-neutral-700 mb-1">Ismingiz *</label>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1">Ismingiz *</label>
                         <input type="text" id="clientName" required minlength="2" placeholder="Masalan: Sanjar" 
-                               class="w-full px-4 py-3 rounded-xl border-2 border-neutral-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100 transition-all text-base">
+                               class="w-full px-3 py-2.5 rounded-xl border-2 border-neutral-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100 transition-all text-sm">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-neutral-700 mb-1">Telefon raqamingiz *</label>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1">Telefon raqamingiz *</label>
                         <input type="tel" id="clientPhone" required placeholder="+998 90 123 45 67" 
                                pattern="[+0-9\s\-\(\)]{9,20}"
-                               class="w-full px-4 py-3 rounded-xl border-2 border-neutral-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100 transition-all text-base">
+                               class="w-full px-3 py-2.5 rounded-xl border-2 border-neutral-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100 transition-all text-sm">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-neutral-700 mb-1">Qo'shimcha izoh</label>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1">Qo'shimcha izoh</label>
                         <textarea id="clientNote" rows="2" placeholder="Masalan: ertaga 14:00 da qo'ng'iroq qiling" 
-                                  class="w-full px-4 py-3 rounded-xl border-2 border-neutral-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100 transition-all text-sm resize-none"></textarea>
+                                  class="w-full px-3 py-2.5 rounded-xl border-2 border-neutral-200 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100 transition-all text-xs resize-none"></textarea>
                     </div>
                     
-                    <button type="submit" id="submitBtn" class="btn-registon ripple-btn w-full font-bold py-4 rounded-xl flex items-center justify-center gap-2 mt-2 text-sm sm:text-base">
-                        <i class="fa-brands fa-telegram text-lg relative z-10"></i>
+                    <button type="submit" id="submitBtn" class="btn-registon ripple-btn w-full font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 text-sm sticky bottom-2">
+                        <i class="fa-brands fa-telegram text-base relative z-10"></i>
                         <span class="relative z-10">Menejerga yuborish</span>
                     </button>
                     
-                    <p class="text-center text-xs text-neutral-400 leading-tight">
+                    <p class="text-center text-[10px] text-neutral-400 leading-tight pb-2">
                         Yuborish orqali siz <span class="text-blue-900 font-semibold">menejerimiz 15 daqiqa ichida</span> siz bilan bog'lanishiga rozilik bildirasiz
                     </p>
                 </form>
@@ -693,7 +690,6 @@
             return { display: formatPrice(total), numeric: total, isCustom: false };
         }
 
-        // ⭐ NARX PANEL HTML
         function getPricePanelHtml(priceInfo) {
             if (priceInfo.isCustom) {
                 return `
@@ -885,29 +881,24 @@
                 container.innerHTML += productCard;
             });
 
-            // ⭐ EVENT DELEGATION - MUAMMONI HAL QILADI
             attachEventListeners();
         }
 
         // ============================================
-        // ⭐ EVENT DELEGATION
+        // EVENT DELEGATION
         // ============================================
         function attachEventListeners() {
-            // O'lcham tugmalari
             document.querySelectorAll('.size-btn').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     const productId = parseInt(this.dataset.product);
                     const idx = parseInt(this.dataset.idx);
                     const product = products.find(p => p.id === productId);
-                    const size = product.sizes[idx];
-                    
-                    selectedConfig[productId].size = size.label;
+                    selectedConfig[productId].size = product.sizes[idx].label;
                     updateProductUI(productId);
                 });
             });
 
-            // Rang tugmalari
             document.querySelectorAll('.color-btn-el').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -915,7 +906,6 @@
                     const idx = parseInt(this.dataset.idx);
                     const product = products.find(p => p.id === productId);
                     const color = product.colors[idx];
-                    
                     selectedConfig[productId].color = color.name;
                     selectedConfig[productId].colorCode = color.code;
                     selectedConfig[productId].colorImage = color.image;
@@ -923,38 +913,30 @@
                 });
             });
 
-            // Material tugmalari
             document.querySelectorAll('.material-btn').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     const productId = parseInt(this.dataset.product);
                     const idx = parseInt(this.dataset.idx);
                     const product = products.find(p => p.id === productId);
-                    const material = product.materials[idx];
-                    
-                    selectedConfig[productId].material = material.name;
+                    selectedConfig[productId].material = product.materials[idx].name;
                     updateProductUI(productId);
                 });
             });
         }
 
-        // ============================================
-        // UI YANGILASH
-        // ============================================
         function updateProductUI(productId) {
             const product = products.find(p => p.id === productId);
             const config = selectedConfig[productId];
             const priceInfo = calculateSelectedPrice(product, config);
             const currentImage = config.colorImage || product.colors[0].image;
             
-            // Rasm
             const imgEl = document.querySelector(`[data-product-img="${productId}"]`);
             if (imgEl) {
                 imgEl.src = currentImage;
                 imgEl.setAttribute('onclick', `openLightbox('${currentImage}', '${product.name.replace(/'/g, "\\'")}', '${priceInfo.display}')`);
             }
             
-            // Rang belgisi
             const colorBadge = document.querySelector(`[data-color-badge="${productId}"]`);
             if (colorBadge) {
                 colorBadge.innerHTML = `
@@ -963,32 +945,20 @@
                 `;
             }
             
-            // Rang nomi
             const colorLabel = document.querySelector(`[data-color-label="${productId}"]`);
-            if (colorLabel) {
-                colorLabel.innerText = config.color;
-            }
+            if (colorLabel) colorLabel.innerText = config.color;
             
-            // Narx panel
             const priceEl = document.querySelector(`[data-price-panel="${productId}"]`);
-            if (priceEl) {
-                priceEl.innerHTML = getPricePanelHtml(priceInfo);
-            }
+            if (priceEl) priceEl.innerHTML = getPricePanelHtml(priceInfo);
             
-            // O'lcham tugmalari
-            const sizeBtns = document.querySelectorAll(`.size-btn[data-product="${productId}"]`);
-            sizeBtns.forEach((btn, idx) => {
+            document.querySelectorAll(`.size-btn[data-product="${productId}"]`).forEach((btn, idx) => {
                 const s = product.sizes[idx];
-                if (config.size === s.label) {
-                    btn.className = "size-btn px-2 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-amber-500 bg-amber-50 text-amber-900 font-bold shadow-sm";
-                } else {
-                    btn.className = "size-btn px-2 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-neutral-200 text-neutral-600 bg-white hover:border-amber-400";
-                }
+                btn.className = config.size === s.label
+                    ? "size-btn px-2 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-amber-500 bg-amber-50 text-amber-900 font-bold shadow-sm"
+                    : "size-btn px-2 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-neutral-200 text-neutral-600 bg-white hover:border-amber-400";
             });
             
-            // Rang tugmalari
-            const colorBtns = document.querySelectorAll(`.color-btn-el[data-product="${productId}"]`);
-            colorBtns.forEach((btn, idx) => {
+            document.querySelectorAll(`.color-btn-el[data-product="${productId}"]`).forEach((btn, idx) => {
                 const c = product.colors[idx];
                 if (config.color === c.name) {
                     btn.className = "color-btn-el color-btn active";
@@ -1005,21 +975,14 @@
                 }
             });
             
-            // Material tugmalari
-            const materialBtns = document.querySelectorAll(`.material-btn[data-product="${productId}"]`);
-            materialBtns.forEach((btn, idx) => {
+            document.querySelectorAll(`.material-btn[data-product="${productId}"]`).forEach((btn, idx) => {
                 const m = product.materials[idx];
-                if (config.material === m.name) {
-                    btn.className = "material-btn px-3 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-amber-500 bg-amber-50 text-amber-900 font-bold shadow-sm";
-                } else {
-                    btn.className = "material-btn px-3 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-neutral-200 text-neutral-600 bg-white hover:border-amber-400";
-                }
+                btn.className = config.material === m.name
+                    ? "material-btn px-3 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-amber-500 bg-amber-50 text-amber-900 font-bold shadow-sm"
+                    : "material-btn px-3 py-2 rounded-lg text-[10px] font-medium border-2 transition-all border-neutral-200 text-neutral-600 bg-white hover:border-amber-400";
             });
         }
 
-        // ============================================
-        // FILTR
-        // ============================================
         function filterCategory(category) {
             currentFilter = category;
             ['all', 'premium', 'budget'].forEach(cat => {
@@ -1038,13 +1001,10 @@
         function openLightbox(imageSrc, title, price) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImage = document.getElementById('lightboxImage');
-            
             lightboxImage.src = imageSrc;
             lightboxImage.alt = title;
-            
             document.getElementById('lightboxTitle').innerText = title;
             document.getElementById('lightboxPrice').innerText = price;
-            
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex', 'active');
             document.body.style.overflow = 'hidden';
@@ -1052,7 +1012,6 @@
 
         function closeLightbox(event) {
             if (event && event.target.tagName === 'IMG') return;
-            
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.add('hidden');
             lightbox.classList.remove('flex', 'active');
@@ -1073,9 +1032,7 @@
             const priceInfo = calculateSelectedPrice(product, config);
             const currentImage = config.colorImage || product.colors[0].image;
 
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = currentImage;
-
+            document.getElementById('modalImage').src = currentImage;
             document.getElementById('modalTitle').innerText = product.name;
             document.getElementById('modalCategory').innerText = product.categoryLabel;
             document.getElementById('modalSize').innerText = config.size;
@@ -1086,13 +1043,13 @@
                 document.getElementById('modalPriceLabel').innerText = 'Yakuniy narx';
                 document.getElementById('modalPriceBadge').innerHTML = '<span class="contact-badge"><i class="fa-solid fa-comments text-[8px]"></i> Aloqada</span>';
                 document.getElementById('modalPriceRange').innerText = "Aloqada aniqlanadi";
-                document.getElementById('modalPriceRange').className = "text-lg sm:text-xl font-black bg-gradient-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent";
+                document.getElementById('modalPriceRange').className = "text-base sm:text-lg font-black bg-gradient-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent";
                 document.getElementById('modalPriceNote').innerHTML = '<i class="fa-solid fa-headset text-amber-600"></i> Maxsus o\'lcham uchun menejer bilan bog\'laning';
             } else {
                 document.getElementById('modalPriceLabel').innerText = 'Tanlangan narx';
                 document.getElementById('modalPriceBadge').innerHTML = '<span class="approx-badge"><i class="fa-solid fa-calculator text-[8px]"></i> Taxminiy</span>';
                 document.getElementById('modalPriceRange').innerText = priceInfo.display;
-                document.getElementById('modalPriceRange').className = "text-lg sm:text-xl font-black bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent";
+                document.getElementById('modalPriceRange').className = "text-base sm:text-lg font-black bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent";
                 document.getElementById('modalPriceNote').innerHTML = '<i class="fa-solid fa-circle-info text-amber-600"></i> Aniq narx o\'lchovdan keyin tasdiqlanadi';
             }
 
